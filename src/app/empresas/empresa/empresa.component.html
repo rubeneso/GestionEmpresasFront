@@ -1,0 +1,45 @@
+<div class="p-fluid p-formgrid p-grid" style="border: solid 0px;">
+    <form [formGroup]="empresaForm">
+        <div class="p-fluid p-formgrid p-grid">
+            <div class="p-col-12">
+                <label for="nombre">* Nombre</label>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-book"></i></span>
+                    <input id="nombre" class="p-inputtext" type="text" placeholder="Nombre empresa" pInputText
+                        [(ngModel)]="empresa.nombre" required formControlName="nombre" maxlength="45">
+                </div>
+                <small *ngIf="f.nombre.invalid && enviando" class="p-error">Introduce un nombre.</small>
+            </div>
+            <div class="p-col-12 p-mt-3">
+                <label for="descripcion">Descripción</label>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-book"></i></span>
+                    <input id="descripcion" class="p-inputtext" type="text" placeholder="Descripción de la empresa"
+                        pInputText [(ngModel)]="empresa.descripcion" [ngModelOptions]="{standalone: true}" maxlength="250">
+                </div>
+            </div>
+            <div class="p-col-12 p-mt-3">
+                <label for="potenciaContratada">Potencia contratada en W</label>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-th-large"></i></span>
+                    <input id="potenciaContratada" class="p-inputtext" type="text" placeholder="Potencia"
+                        pInputText [(ngModel)]="empresa.potenciaContratada"
+                        formControlName="potenciaContratada">
+                </div>
+            </div>
+
+            <div class="p-col-6 p-mt-3">
+                <p-button label="Guardar" icon="pi pi-check" styleClass="p-button-primary p-button-sm"
+                    (click)="saveEmpresa()"></p-button>
+            </div>
+            <div class="p-col-6 p-mt-3">
+                <p-button label="Cancelar" icon="pi pi-times" styleClass="p-button-secondary p-button-sm"
+                    (click)="close()">
+                </p-button>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<p-toast position="bottom-center"></p-toast>

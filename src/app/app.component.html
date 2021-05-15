@@ -1,0 +1,46 @@
+<style>
+  a {
+    color: rgb(240, 81, 75);
+    text-decoration: none;
+  }
+
+  a :hover {
+    color: rgb(240, 122, 118);
+  }
+
+  .toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #1976d2;
+    color: white;
+    font-weight: 600;
+  }
+
+  .toolbar img {
+    margin: 0 16px;
+  }
+
+  .content {
+    display: flex;
+    margin: 6rem auto 4rem;
+    padding: 0 16px;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
+
+<div class="toolbar" role="banner">
+  <img width="40" alt="Angular Logo"
+    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" />
+  <span class="p-ml-2"><a routerLink="/index" routerLinkActive="active">Página Principal</a></span>
+  <span class="p-ml-2"><a routerLink="/empresas" routerLinkActive="active">Empresas</a></span>
+</div>
+
+<div class="content" role="main">
+  <router-outlet></router-outlet>
+</div>
