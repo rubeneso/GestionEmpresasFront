@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Departamento } from 'src/app/model/departamento';
 import { Empresa } from 'src/app/model/empresa';
+import { DepartamentoService } from 'src/app/services/departamento.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
 
 @Component({
@@ -14,6 +16,7 @@ import { EmpresaService } from 'src/app/services/empresa.service';
 export class EmpresaComponent implements OnInit {
 
   empresa: Empresa = new Empresa();
+  departamentos: Departamento[] = [];
 
   empresaForm : FormGroup;
 
@@ -24,9 +27,11 @@ export class EmpresaComponent implements OnInit {
     private config: DynamicDialogConfig,
     private messageService: MessageService,
     private empresaService: EmpresaService,
+    private departamentoService: DepartamentoService
   ) { }
 
   ngOnInit(): void {
+    this.getDepartamentos();
     if(this.config.data) this.getEmpresa();
     this.empresaForm = new FormGroup({
       nombre : new FormControl(this.empresa.nombre , Validators.required),
@@ -46,6 +51,23 @@ export class EmpresaComponent implements OnInit {
         setTimeout(() =>{
           this.close();
         },1500)
+      }
+    );
+  }
+
+  getDepartamentos() {
+    this.departamentoService.getDepartamentos().subscribe(
+      (response) => {
+        if (response != null) {
+          this.departamentos = response.lista;
+        }
+        else {
+          this.departamentos = [];
+        }
+      },
+      (error) => {
+        this.departamentos = [];
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ha ocurrido un error inesperado' });
       }
     );
   }

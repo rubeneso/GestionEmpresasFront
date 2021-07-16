@@ -1,0 +1,36 @@
+<div class="p-mb-3">
+    <button pButton type="button" class="p-button-success" icon="pi pi-plus" label="Añadir empleado" (click)="openDialogCreateEmpleado()"></button>
+    <button pButton type="button" class="p-button-info p-ml-3" icon="pi pi-refresh" label="Refrescar" (click)="reload()"></button>
+</div>
+<p-table [value]="datasource" [rows]="10" [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10,25,50]" styleClass="p-datatable-customers p-datatable-gridlines"
+    [paginator]="true" currentPageReportTemplate="Mostrando desde {first} hasta {last} de {totalRecords} registros"
+    [globalFilterFields]="['nombre']" [lazy]="true" (onPage)="paginate($event)"
+    [totalRecords]="total" [loading]="loading">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th style="width: 5rem;"></th>
+            <th style="width: 5rem;"></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-empleado>
+        <tr>
+            <td>{{empleado.nombre}}</td>
+            <td>{{empleado.descripcion}}</td>
+            <td style="text-align: center">
+                <button pButton type="button" class="p-button-primary" icon="pi pi-pencil" (click)="openDialogEditEmpleado(empleado.id)"></button>
+            </td>
+            <td style="text-align: center">
+                <button pButton type="button" class="p-button-primary" icon="pi pi-trash" (click)="deleteEmpleado(empleado.id)"></button>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="3" style="text-align: center;">{{emptymessage}}</td>
+        </tr>
+    </ng-template>
+</p-table>
+<p-toast position="bottom-center"></p-toast>

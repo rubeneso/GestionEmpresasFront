@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { Empresa } from '../model/empresa';
+import { Departamento } from '../model/departamento';
 import { GenericListComponent } from '../model/infraestructura/generic-list.component';
-import { EmpresaService } from '../services/empresa.service';
-import { EmpresaComponent } from './empresa/empresa.component';
+import { DepartamentoService } from '../services/departamento.service';
+import { DepartamentoComponent } from './departamento/departamento.component';
 
 @Component({
-  selector: 'app-empresas',
-  templateUrl: './empresas.component.html',
-  styleUrls: ['./empresas.component.scss'],
+  selector: 'app-departamentos',
+  templateUrl: './departamentos.component.html',
+  styleUrls: ['./departamentos.component.scss'],
   providers: [DialogService, MessageService]
 })
-export class EmpresasComponent extends GenericListComponent<Empresa> implements OnInit {
+export class DepartamentosComponent extends GenericListComponent<Departamento> implements OnInit {
 
   loading: boolean = false;
   currentPage: number = 0;
   pageSize: number = 10;
-  emptymessage: string = "No se encontraron empresas"
+  emptymessage: string = "No se encontraron departamentos"
 
   constructor(
     private dialogService: DialogService,
     private messageService: MessageService,
-    private empresaService: EmpresaService
+    private departamentoService: DepartamentoService
   ) {
     super();
   }
@@ -33,7 +33,7 @@ export class EmpresasComponent extends GenericListComponent<Empresa> implements 
 
   reload() {
     this.loading = true;
-    this.empresaService.getEmpresasPaginated(this.currentPage, this.pageSize).subscribe(
+    this.departamentoService.getDepartamentosPaginated(this.currentPage, this.pageSize).subscribe(
       (response) => {
         this.loading = false;
         if (response != null) {
@@ -53,20 +53,20 @@ export class EmpresasComponent extends GenericListComponent<Empresa> implements 
     );
   }
 
-  openDialogCreateEmpresa() {
-    const ref = this.dialogService.open(EmpresaComponent, {
-      header: 'Crear Empresa',
+  openDialogCreateDepartamento() {
+    const ref = this.dialogService.open(DepartamentoComponent, {
+      header: 'Crear Departamento',
       width: '35%'
     });
     ref.onClose.subscribe(() => this.reload());
   }
 
-  openDialogEditEmpresa(id: number) {
-    const ref = this.dialogService.open(EmpresaComponent, {
+  openDialogEditDepartamento(id: number) {
+    const ref = this.dialogService.open(DepartamentoComponent, {
       data: {
         id: id
       },
-      header: 'Editar Empresa',
+      header: 'Editar Departamento',
       width: '35%'
     });
     ref.onClose.subscribe(() => this.reload());

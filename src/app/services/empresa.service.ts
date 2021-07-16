@@ -17,8 +17,10 @@ export class EmpresaService {
   
   constructor(private http: HttpClient) { }
 
-  getEmpresas(): Observable<Empresa[]> {
-    return this.http.get<Empresa[]>(this.empresasUrl, HttpOptions)
+  getEmpresas(): Observable<EmpresaList> {
+    return this.http.get<EmpresaList>(this.empresasUrl, HttpOptions).pipe(
+      map( response => response as EmpresaList),
+    );
   }
 
   getEmpresasPaginated(page: number, size: number): Observable<EmpresaList> {
@@ -35,4 +37,5 @@ export class EmpresaService {
     return this.http
       .post<Empresa>(this.empresasUrl + '/createOrUpdate', empresa, HttpOptions)
   }
+  
 }

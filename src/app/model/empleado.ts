@@ -1,10 +1,9 @@
-import { EmpleadoDepartamento } from "./empleado_departamento";
-import { Empresa } from "./empresa";
+import { DepartamentoCargo } from "./departamento-cargo";
 
 export class Empleado{
     id: number;
     nombre: string;
     descripcion: string;
-    empresa: Empresa;
-    empleadosDepartamentos: EmpleadoDepartamento [];
+    codEmpresa: number;
+    departamentosCargos: DepartamentoCargo [];
 }

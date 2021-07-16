@@ -1,28 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { Empresa } from '../model/empresa';
+import { Empleado } from '../model/empleado';
 import { GenericListComponent } from '../model/infraestructura/generic-list.component';
-import { EmpresaService } from '../services/empresa.service';
-import { EmpresaComponent } from './empresa/empresa.component';
+import { EmpleadoService } from '../services/empleado.service';
+import { EmpleadoComponent } from './empleado/empleado.component';
 
 @Component({
-  selector: 'app-empresas',
-  templateUrl: './empresas.component.html',
-  styleUrls: ['./empresas.component.scss'],
+  selector: 'app-empleados',
+  templateUrl: './empleados.component.html',
+  styleUrls: ['./empleados.component.scss'],
   providers: [DialogService, MessageService]
 })
-export class EmpresasComponent extends GenericListComponent<Empresa> implements OnInit {
+export class EmpleadosComponent extends GenericListComponent<Empleado> implements OnInit {
 
   loading: boolean = false;
   currentPage: number = 0;
   pageSize: number = 10;
-  emptymessage: string = "No se encontraron empresas"
+  emptymessage: string = "No se encontraron empleados"
 
   constructor(
     private dialogService: DialogService,
     private messageService: MessageService,
-    private empresaService: EmpresaService
+    private empleadoService: EmpleadoService
   ) {
     super();
   }
@@ -33,7 +33,7 @@ export class EmpresasComponent extends GenericListComponent<Empresa> implements 
 
   reload() {
     this.loading = true;
-    this.empresaService.getEmpresasPaginated(this.currentPage, this.pageSize).subscribe(
+    this.empleadoService.getEmpleadosPaginated(this.currentPage, this.pageSize).subscribe(
       (response) => {
         this.loading = false;
         if (response != null) {
@@ -53,23 +53,34 @@ export class EmpresasComponent extends GenericListComponent<Empresa> implements 
     );
   }
 
-  openDialogCreateEmpresa() {
-    const ref = this.dialogService.open(EmpresaComponent, {
-      header: 'Crear Empresa',
+  openDialogCreateEmpleado() {
+    const ref = this.dialogService.open(EmpleadoComponent, {
+      header: 'Crear Empleado',
       width: '35%'
     });
     ref.onClose.subscribe(() => this.reload());
   }
 
-  openDialogEditEmpresa(id: number) {
-    const ref = this.dialogService.open(EmpresaComponent, {
+  openDialogEditEmpleado(id: number) {
+    const ref = this.dialogService.open(EmpleadoComponent, {
       data: {
         id: id
       },
-      header: 'Editar Empresa',
+      header: 'Editar Empleado',
       width: '35%'
     });
     ref.onClose.subscribe(() => this.reload());
+  }
+
+  deleteEmpleado(id) {
+    this.empleadoService.deleteEmpleado(id).subscribe(
+      (response) => {
+        this.reload();
+       },
+      (error) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ha ocurrido un error inesperado' });
+      }
+    )
   }
 
   paginate(event: LazyLoadEvent) {

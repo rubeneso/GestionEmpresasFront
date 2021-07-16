@@ -5,5 +5,5 @@ export class Empresa{
     nombre: string;
     descripcion: string;
     potenciaContratada: number;
-    departamentos: Departamento[];
+    codsDepartamentos: number[];
 }
